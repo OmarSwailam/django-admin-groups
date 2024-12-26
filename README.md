@@ -1,6 +1,6 @@
 # Django Admin Groups
 
-*Combine models from different apps under a single label.*
+*Combine models from different apps under a single label in the admin panel.*
 
 
 ## Installation
@@ -35,15 +35,15 @@
         {
             "group_name": "group_1",
             "models": [
-                "app_1.model_1",
-                "app_2.model_2",
+                "app_1.model1",
+                "app_2.model2",
             ],
         },
         {
             "group_name": "group_2",
             "models": [
-                "app_1.model_3",
-                "app_2.model_4",
+                "app_1.model3",
+                "app_2.model4",
             ],
         },
     ]
