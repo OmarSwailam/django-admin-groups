@@ -11,7 +11,7 @@ class CustomAdminSite(AdminSite):
         super().__init__(*args, **kwargs)
 
     def get_app_list(self, request):
-        app_list = super().get_app_list(request)
+        app_list = []
         admin_reorder_config = getattr(settings, "ADMIN_GROUPS", [])
 
         grouped_models = {}
