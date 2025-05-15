@@ -1,0 +1,39 @@
+{% load i18n %}
+{% load custom_filters %}
+{% load admin_urls %}
+
+<style>
+  .breadcrumbs {
+      margin-left: 17px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+  }
+  .breadcrumbs a {
+      margin-right: 3px;
+      margin-left: 3px;
+  }
+</style>
+
+<nav aria-label="{% translate 'Breadcrumbs' %}">
+  {% for group in admin_groups %}
+  {% for item in group.models %}
+    {% if item|lower == model_key %}
+      {% with group_name=group.group_name group_slug=group.group_name|to_slug %}
+        <div class="breadcrumbs">
+          <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+          &rsaquo;
+          <a href="{% url 'admin_group_index' group_slug %}">{{ group_name }}</a>
+          &rsaquo;
+          <a href="{% url opts|admin_urlname:'changelist' %}">
+            {{ opts.verbose_name_plural|capfirst }}
+          </a>
+          {% if action %}
+            &rsaquo; {{ action }}
+          {% endif %}
+        </div>
+      {% endwith %}
+    {% endif %}
+  {% endfor %}
+  {% endfor %}
+</nav>
+

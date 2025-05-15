@@ -1,0 +1,4 @@
+{% extends "admin/change_form.html" %}
+{% block breadcrumbs %}
+  {% include "django_admin_groups/breadcrumbs.html" with action=add|yesno:"Add,Edit" %}
+{% endblock %}

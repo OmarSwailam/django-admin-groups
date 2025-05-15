@@ -13,11 +13,13 @@
 
 - Add `django_admin_groups` to your `INSTALLED_APPS`:
 
+    you should add it before the "django.contrib.admin"
     ```python
     INSTALLED_APPS = [
         ...
         "django_admin_groups",
-        ]
+        "django.contrib.admin"
+    ]
     ```
 
 ## Usage
@@ -49,6 +51,25 @@
     ]
     ```
 
+
+- add the "admin-groups_context" to the templates context_processors
+
+    ```python
+    TEMPLATES = [
+        {
+            ...
+            "OPTIONS": {
+                "context_processors": [
+                    ...
+                    "django_admin_groups.context_processors.admin_groups_context",
+                ],
+            },
+        },
+    ]
+
+    ```
+
+
 - Use the custom admin site provided by the package in your `admin.py`:
     ```python
     from django_admin_groups.admin import CustomAdminSite
@@ -69,13 +90,33 @@
 
 
     urlpatterns = [
-        path("admin/", custom_admin_site.urls),  # Use the custom admin site
+        re_path( # urls for the custom app_index pages 
+            r"^admin/(?P<group_name>[\w-]+)/$",
+            custom_admin_site.group_index,
+            name="admin_group_index"
+        ),
+        path("admin/", custom_admin_site.urls),  
     ]
     ```
 
 ## How It Works
+This package overrides Django’s get_app_list and _build_app_dict to use your ADMIN_GROUPS instead of the default app-based layout.
 
-The package overrides the `get_app_list` method of the Django admin site to dynamically create custom groups based on your `ADMIN_GROUPS` configuration. Models retain their default functionality while appearing organized under user-defined labels.
+- Group names appear exactly in the order you define them.
+
+- Models within groups also respect your defined order.
+
+- Breadcrumbs and section labels reflect group names instead of app labels.
+
+If you override any of the default Django admin templates (like change_list.html, change_form.html, etc.), and you want the custom breadcrumbs to work correctly inside your templates, simply include the shared breadcrumb partial:
+
+```django
+{% include "django_admin_groups/breadcrumbs.html" with action="Edit" %}
+
+```
+
+action is optional and can be "Edit", "Add" — or left blank.
+
 
 ---
 
@@ -99,6 +140,7 @@ If you have ideas, suggestions, or bug reports, please open an issue or submit a
 5. Submit a pull request.
 
 [GitHub repository](https://github.com/OmarSwailam/django-admin-groups).
+[PyPi](https://pypi.org/project/django-admin-groups/).
 ---
 
 Author: Omar Swailam
