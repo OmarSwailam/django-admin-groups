@@ -1,5 +1,9 @@
 # Django Admin Groups
 
+![PyPI](https://img.shields.io/pypi/v/django-admin-groups)
+![License](https://img.shields.io/github/license/OmarSwailam/django-admin-groups)
+![Python Versions](https://img.shields.io/pypi/pyversions/django-admin-groups)
+
 *Combine models from different apps under a single label in the admin panel.*
 
 
