@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="django-admin-groups",
-    version="1.0.0",
+    version="1.0.1",
     description="Group Django admin models under custom sections.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",

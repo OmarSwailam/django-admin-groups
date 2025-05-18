@@ -1,3 +1,4 @@
 include README.md
 include LICENSE
 recursive-include django_admin_groups/templates *
+recursive-include django_admin_groups/templatetags *
