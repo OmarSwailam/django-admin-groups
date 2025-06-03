@@ -13,7 +13,7 @@ class CustomAdminSite(AdminSite):
         )
         super().__init__(*args, **kwargs)
 
-    def get_app_list(self, request):
+    def get_app_list(self, request, *args, **kwargs):
         app_list = []
         admin_reorder_config = getattr(settings, "ADMIN_GROUPS", [])
 
